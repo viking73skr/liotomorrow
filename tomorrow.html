@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>$TOMORROW Children's Day Coin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=DM+Sans:wght@400;500;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: the page is one night turning into morning. A dark sky hero with Lio,
+   a sun that rises day by day until launch, then the light, practical sections below. */
+:root{
+  --night:#13244A;
+  --ink:#0B1D3A;
+  --sun:#FFC93C;
+  --coral:#FF5A4E;
+  --sky:#F3F0FA;
+  --paper:#FFFFFF;
+  --mute:#5D6683;
+  --line:#DCD6EC;
+  --display:"Bricolage Grotesque","Arial Black",system-ui,sans-serif;
+  --body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --hand:"Caveat","Comic Sans MS",cursive;
+  --dawn:0;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--sky);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);line-height:1.05;margin:0;text-wrap:balance}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.num{font-variant-numeric:tabular-nums}
+:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+button{font:inherit}
+
+/* ===== night sky hero ===== */
+.night{position:relative;overflow:hidden;color:#fff;
+  background:linear-gradient(180deg,#0E1A38 0%,#1F2E5E 45%,#4A3F7A 75%,#7C5A92 100%)}
+.night::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:var(--dawn);
+  background:linear-gradient(180deg,rgba(255,255,255,0) 30%,rgba(255,138,101,.55) 85%,rgba(255,201,60,.6) 100%)}
+#sky{position:absolute;inset:0;width:100%;height:100%}
+.night nav{position:relative;z-index:3;display:flex;justify-content:space-between;align-items:center;padding:18px 0;gap:16px;flex-wrap:wrap}
+.brand{font-family:var(--display);font-weight:800;font-size:24px;text-decoration:none;color:#fff}
+.navlinks{display:flex;gap:18px;flex-wrap:wrap;font-weight:500}
+.navlinks a{text-decoration:none;color:#E6E1F5}
+.navlinks a:hover{color:#fff;text-decoration:underline}
+
+.scene{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:end;padding:20px 0 0}
+.story{padding-bottom:56px}
+.eyebrow{display:inline-block;background:rgba(255,201,60,.15);color:var(--sun);border:1px solid rgba(255,201,60,.4);font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:999px;margin-bottom:20px}
+.lines p{margin:0 0 6px;font-size:19px;color:#E6E1F5;animation:rise .9s both}
+.lines p:nth-child(2){animation-delay:.6s}
+.lines p:nth-child(3){animation-delay:1.2s}
+@keyframes rise{from{transform:translateY(10px);opacity:.25}}
+.story h1{font-size:clamp(42px,6.4vw,76px);font-weight:800;margin:22px 0 22px}
+.story h1 em{font-style:normal;color:var(--sun)}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 22px;border-radius:14px;font-weight:700;text-decoration:none;border:2px solid currentColor;cursor:pointer;background:transparent;color:inherit}
+.btn.primary{background:var(--sun);border-color:var(--sun);color:var(--ink)}
+.btn:hover{transform:translateY(-1px)}
+
+/* Lio stage */
+.stage{position:relative;overflow:hidden;height:520px;display:flex;justify-content:center;align-items:flex-end}
+.sunwrap{position:absolute;left:50%;bottom:0;width:440px;height:440px;margin-left:-220px;
+  transform:translateY(calc(72% - var(--dawn) * 52%));transition:transform 1.5s ease}
+.sunball{width:100%;height:100%;border-radius:50%;
+  background:radial-gradient(circle,#FFE08A 0%,#FFC93C 55%,#FFB02E 100%);
+  box-shadow:0 0 80px 30px rgba(255,201,60,.35);animation:glow 5s ease-in-out infinite}
+@keyframes glow{50%{box-shadow:0 0 110px 45px rgba(255,201,60,.45)}}
+.hill{position:absolute;left:-10%;right:-10%;bottom:-2px;height:90px;background:#2A2350;border-radius:50% 50% 0 0}
+.lio{position:relative;z-index:2;width:300px;margin-bottom:34px;cursor:pointer;background:none;border:0;padding:0;-webkit-tap-highlight-color:transparent}
+.lio svg{width:100%;height:auto;display:block;animation:breathe 4s ease-in-out infinite;transform-origin:50% 95%}
+@keyframes breathe{50%{transform:scale(1.015,.99)}}
+.lio.hug svg{animation:hug .7s ease}
+@keyframes hug{30%{transform:scale(1.04,.95)}60%{transform:scale(.98,1.03)}}
+#teddy{transform-origin:200px 290px;transition:transform .3s}
+.lio.hug #teddy{transform:scale(1.08)}
+#eyes{transition:transform .15s ease-out}
+.bubble{position:absolute;z-index:3;left:50%;bottom:340px;transform:translateX(-50%);min-width:230px;max-width:290px;
+  background:#fff;color:var(--ink);font-family:var(--hand);font-size:25px;line-height:1.15;text-align:center;
+  padding:12px 18px;border-radius:20px;box-shadow:0 8px 24px rgba(0,0,0,.25);transition:opacity .4s}
+.bubble::after{content:"";position:absolute;left:50%;bottom:-10px;margin-left:-10px;border:10px solid transparent;border-bottom:0;border-top-color:#fff}
+.taphint{position:absolute;z-index:3;bottom:8px;left:0;right:0;text-align:center;font-size:14px;color:#E6E1F5;opacity:.85}
+.heart{position:absolute;z-index:4;pointer-events:none;font-size:26px;color:var(--coral);animation:float 1.8s ease-out forwards}
+@keyframes float{to{transform:translate(var(--dx),-170px) scale(1.3);opacity:0}}
+
+/* countdown band */
+.band{position:relative;z-index:2;background:rgba(11,29,58,.72);backdrop-filter:blur(6px);border-top:1px solid rgba(255,255,255,.12)}
+.bandin{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;padding:22px 20px}
+.bandin .lbl{color:var(--sun);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.bandin .sub{color:#C9C3E0;font-size:14px}
+.cells{display:flex;gap:10px}
+.cell{background:rgba(255,255,255,.08);border-radius:14px;padding:10px 14px;text-align:center;min-width:76px}
+.cell b{display:block;font-family:var(--display);font-size:clamp(30px,4vw,42px);font-weight:800}
+.cell span{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#C9C3E0}
+.live{display:none;align-items:center;gap:10px;font-family:var(--display);font-size:30px;color:var(--sun)}
+.live i{width:14px;height:14px;border-radius:50%;background:var(--coral);box-shadow:0 0 0 6px rgba(255,90,78,.25)}
+.starbtn{display:flex;align-items:center;gap:14px}
+.starbtn small{color:#C9C3E0;font-size:14px;max-width:16em}
+
+/* ===== day sections ===== */
+section{padding:60px 0;border-top:2px solid var(--line)}
+.sechead{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:28px}
+.sechead h2{font-size:clamp(32px,4.5vw,48px);font-weight:800}
+.sechead p{margin:0;color:var(--mute);max-width:32em}
+
+.letter{background:var(--paper);border-radius:24px;padding:34px;border:2px solid var(--line);display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center}
+.letter .hand{font-family:var(--hand);font-size:clamp(26px,3.4vw,34px);line-height:1.25;color:var(--ink)}
+.letter .sig{font-family:var(--hand);font-size:26px;color:var(--coral);margin-top:10px}
+.letter svg{width:150px;height:auto}
+
+.votes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.vcard{background:var(--paper);border:2px solid var(--ink);border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:12px;transition:transform .2s, box-shadow .2s}
+.vcard:hover{transform:translateY(-4px);box-shadow:8px 8px 0 var(--sun)}
+.vcard.lead{box-shadow:8px 8px 0 var(--sun)}
+.vletter{width:44px;height:44px;border-radius:12px;background:var(--sun);display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:22px}
+.vcard h3{font-size:24px}
+.vcard p{margin:0;color:var(--mute);font-size:15px}
+.bar{height:12px;background:var(--sky);border-radius:999px;overflow:hidden;margin-top:auto}
+.bar i{display:block;height:100%;background:var(--coral);border-radius:999px;transition:width 1.2s ease}
+.pct{display:flex;justify-content:space-between;font-weight:700;font-size:15px}
+.vcard .btn{background:var(--ink);color:var(--sun);border-color:var(--ink);justify-content:center}
+.votenote{margin-top:18px;color:var(--mute);font-size:14px}
+.window{display:inline-flex;background:var(--paper);border:2px solid var(--ink);border-radius:999px;padding:6px 14px;font-weight:700;font-size:14px;color:var(--ink)}
+
+.meter{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.stat{background:var(--paper);border-radius:22px;padding:24px;border:2px solid var(--line)}
+.stat small{display:block;color:var(--mute);font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+.stat b{display:block;font-family:var(--display);font-size:clamp(34px,5vw,52px);font-weight:800;margin-top:6px}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px}
+.step{background:var(--night);color:#fff;border-radius:18px;padding:18px}
+.step .n{color:var(--sun);font-family:var(--display);font-weight:800;font-size:15px}
+.step h3{font-size:21px;margin:6px 0}
+.step p{margin:0;color:#C9C3E0;font-size:14.5px}
+
+.tablewrap{overflow-x:auto;background:var(--paper);border:2px solid var(--line);border-radius:18px}
+table{width:100%;border-collapse:collapse;font-size:15px;min-width:560px}
+th,td{text-align:left;padding:14px 18px;border-bottom:1px solid var(--line)}
+th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+tr:last-child td{border-bottom:0}
+.empty{color:var(--mute);text-align:center;padding:28px}
+
+.token{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.ca{grid-column:1/-1;display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:var(--night);color:#fff;border-radius:18px;padding:18px 20px}
+.ca code{flex:1;min-width:220px;font-size:15px;color:var(--sun);word-break:break-all}
+.ca .btn{color:var(--sun);padding:10px 16px}
+
+.road{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.rm{border-left:4px solid var(--sun);padding:4px 0 4px 16px}
+.rm.now{border-color:var(--coral)}
+.rm b{font-family:var(--display);font-size:20px;display:block}
+.rm span{color:var(--mute);font-size:15px}
+
+footer{background:var(--night);color:#C9C3E0;padding:40px 0;font-size:14px;margin-top:40px}
+footer b{color:#fff}
+footer .row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:16px}
+
+@media (max-width:860px){
+  .scene{grid-template-columns:1fr}
+  .story{padding-bottom:0}
+  .stage{height:460px}
+  .votes,.meter,.token{grid-template-columns:1fr}
+  .flow,.road{grid-template-columns:1fr 1fr}
+  .letter{grid-template-columns:1fr}
+  .letter svg{width:110px}
+}
+@media (max-width:440px){
+  .flow,.road{grid-template-columns:1fr}
+  .lio{width:250px}
+  .bubble{bottom:290px;font-size:22px}
+  .sunwrap{width:340px;height:340px;margin-left:-170px}
+  .cell{min-width:64px;padding:8px 8px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+}
+</style>
+</head>
+<body>
+
+<header class="night" id="top">
+  <canvas id="sky" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="#top" id="brandName">$TOMORROW</a>
+      <div class="navlinks">
+        <a href="#lio">Lio's letter</a>
+        <a href="#vote">Vote</a>
+        <a href="#meter">Meter</a>
+        <a href="#token">Token</a>
+        <a id="navX" href="#">X</a>
+      </div>
+    </nav>
+    <div class="scene">
+      <div class="story">
+        <span class="eyebrow">November 20 · World Children's Day</span>
+        <div class="lines">
+          <p>Tonight, somewhere, a child can't sleep.</p>
+          <p>He holds his old bear a little tighter.</p>
+          <p>And he waits for morning.</p>
+        </div>
+        <h1>Every child deserves<br><em>a tomorrow.</em></h1>
+        <div class="btns">
+          <a class="btn primary" href="#vote">Vote for the charity</a>
+          <a class="btn" href="#lio">Read Lio's letter</a>
+        </div>
+      </div>
+      <div class="stage" id="stage">
+        <div class="sunwrap" aria-hidden="true"><div class="sunball"></div></div>
+        <div class="hill" aria-hidden="true"></div>
+        <div class="bubble" id="bubble" aria-live="polite">Hi. I'm Lio. This is Bear.</div>
+        <button class="lio" id="lio" type="button" aria-label="Give Lio a hug">
+          <svg viewBox="0 0 400 400" role="img" aria-label="Lio, a little child in a yellow raincoat holding a patched teddy bear"><g>
+ <ellipse cx="200" cy="372" rx="80" ry="10" fill="#0B1D3A" opacity=".18"/>
+ <!-- boots -->
+ <path d="M168 330 v28 h-18 a8 8 0 0 1 0 -6 z" fill="#0B1D3A" stroke="#0B1D3A" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+ <path d="M232 330 v28 h18 a8 8 0 0 0 0 -6 z" fill="#0B1D3A" stroke="#0B1D3A" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+ <rect x="160" y="318" width="22" height="40" rx="6" fill="#0B1D3A"/>
+ <rect x="218" y="318" width="22" height="40" rx="6" fill="#0B1D3A"/>
+ <!-- hood back -->
+ <circle cx="200" cy="158" r="80" fill="#FFC93C" stroke="#0B1D3A" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+ <!-- coat -->
+ <path d="M152 212 Q200 196 248 212 L268 330 Q200 346 132 330 Z" fill="#FFC93C" stroke="#0B1D3A" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+ <line x1="200" y1="214" x2="200" y2="336" stroke="#0B1D3A" stroke-width="4" opacity=".35"/>
+ <!-- sleeves -->
+ <path d="M156 222 Q132 260 168 292" fill="none" stroke="#0B1D3A" stroke-width="30" stroke-linecap="round"/>
+ <path d="M156 222 Q132 260 168 292" fill="none" stroke="#FFC93C" stroke-width="18" stroke-linecap="round"/>
+ <path d="M244 222 Q268 260 232 292" fill="none" stroke="#0B1D3A" stroke-width="30" stroke-linecap="round"/>
+ <path d="M244 222 Q268 260 232 292" fill="none" stroke="#FFC93C" stroke-width="18" stroke-linecap="round"/>
+ <g id="teddy">
+ <circle cx="178" cy="236" r="11" fill="#A8714A" stroke="#0B1D3A" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+ <circle cx="222" cy="236" r="11" fill="#A8714A" stroke="#0B1D3A" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+ <ellipse cx="200" cy="300" rx="34" ry="32" fill="#A8714A" stroke="#0B1D3A" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+ <circle cx="200" cy="258" r="28" fill="#A8714A" stroke="#0B1D3A" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+ <ellipse cx="200" cy="268" rx="12" ry="9" fill="#D9A77C" stroke="#0B1D3A" stroke-width="4"/>
+ <circle cx="200" cy="264" r="3.5" fill="#0B1D3A"/>
+ <circle cx="189" cy="252" r="4" fill="#0B1D3A"/>
+ <path d="M206 248 l8 8 m0 -8 l-8 8" stroke="#0B1D3A" stroke-width="3.5" stroke-linecap="round"/>
+ <rect x="206" y="294" width="18" height="18" rx="3" fill="#FF5A4E" stroke="#0B1D3A" stroke-width="4" transform="rotate(-8 215 303)"/>
+ <path d="M204 292 l-4 -4 M226 290 l4 -4 M204 316 l-4 4 M228 312 l4 4" stroke="#0B1D3A" stroke-width="3" stroke-linecap="round"/>
+ <path d="M178 288 q6 4 0 10" fill="none" stroke="#0B1D3A" stroke-width="3" stroke-dasharray="3 4" stroke-linecap="round"/>
+</g>
+ <!-- hands -->
+ <circle cx="168" cy="294" r="12" fill="#D99A6C" stroke="#0B1D3A" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+ <circle cx="232" cy="294" r="12" fill="#D99A6C" stroke="#0B1D3A" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+ <!-- face -->
+ <circle cx="200" cy="168" r="56" fill="#D99A6C" stroke="#0B1D3A" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+ <path d="M150 150 Q160 112 200 110 Q240 112 250 150 Q236 132 222 138 Q210 124 196 136 Q180 126 168 140 Q158 136 150 150 Z" fill="#3B2A20" stroke="#0B1D3A" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+ <g id="eyes"><ellipse cx="181" cy="172" rx="9" ry="12" fill="#0B1D3A"/>
+ <ellipse cx="219" cy="172" rx="9" ry="12" fill="#0B1D3A"/>
+ <circle cx="184" cy="167" r="3.5" fill="#fff"/><circle cx="222" cy="167" r="3.5" fill="#fff"/>
+ <circle cx="178" cy="176" r="1.8" fill="#fff"/><circle cx="216" cy="176" r="1.8" fill="#fff"/></g>
+ <ellipse cx="166" cy="192" rx="9" ry="6" fill="#FF5A4E" opacity=".55"/>
+ <ellipse cx="234" cy="192" rx="9" ry="6" fill="#FF5A4E" opacity=".55"/>
+ <path d="M191 197 q9 7 18 0" fill="none" stroke="#0B1D3A" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+</g></svg>
+        </button>
+        <div class="taphint">Tap Lio to give him a hug</div>
+      </div>
+    </div>
+  </div>
+  <div class="band">
+    <div class="wrap bandin">
+      <div>
+        <div class="lbl" id="clockLabel">The sun rises in</div>
+        <div class="sub" id="clockWhen"></div>
+      </div>
+      <div class="cells num" id="cells">
+        <div class="cell"><b id="d">00</b><span>Days</span></div>
+        <div class="cell"><b id="h">00</b><span>Hours</span></div>
+        <div class="cell"><b id="m">00</b><span>Min</span></div>
+        <div class="cell"><b id="s">00</b><span>Sec</span></div>
+      </div>
+      <div class="live" id="live"><i></i>The sun is up. We're live.</div>
+      <div class="starbtn">
+        <button class="btn primary" id="starBtn" type="button">✦ Light a star</button>
+        <small id="starNote">Leave a light on for a child who's afraid of the dark.</small>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="lio">
+  <div class="wrap">
+    <div class="sechead"><h2>A letter from Lio</h2></div>
+    <div class="letter">
+      <svg viewBox="140 220 120 120" aria-hidden="true">
+ <circle cx="178" cy="236" r="11" fill="#A8714A" stroke="#0B1D3A" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+ <circle cx="222" cy="236" r="11" fill="#A8714A" stroke="#0B1D3A" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+ <ellipse cx="200" cy="300" rx="34" ry="32" fill="#A8714A" stroke="#0B1D3A" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+ <circle cx="200" cy="258" r="28" fill="#A8714A" stroke="#0B1D3A" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+ <ellipse cx="200" cy="268" rx="12" ry="9" fill="#D9A77C" stroke="#0B1D3A" stroke-width="4"/>
+ <circle cx="200" cy="264" r="3.5" fill="#0B1D3A"/>
+ <circle cx="189" cy="252" r="4" fill="#0B1D3A"/>
+ <path d="M206 248 l8 8 m0 -8 l-8 8" stroke="#0B1D3A" stroke-width="3.5" stroke-linecap="round"/>
+ <rect x="206" y="294" width="18" height="18" rx="3" fill="#FF5A4E" stroke="#0B1D3A" stroke-width="4" transform="rotate(-8 215 303)"/>
+ <path d="M204 292 l-4 -4 M226 290 l4 -4 M204 316 l-4 4 M228 312 l4 4" stroke="#0B1D3A" stroke-width="3" stroke-linecap="round"/>
+ <path d="M178 288 q6 4 0 10" fill="none" stroke="#0B1D3A" stroke-width="3" stroke-dasharray="3 4" stroke-linecap="round"/>
+</svg>
+      <div>
+        <div class="hand">Bear has one eye sewn back on and a patch on his tummy. He's been with me everywhere. When it's dark, I tell him the sun always comes back. Will you help it come back for kids like me?</div>
+        <div class="sig">— Lio 🧸</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="vote">
+  <div class="wrap">
+    <div class="sechead">
+      <h2>You pick the charity</h2>
+      <p>Three children's charities. One poll on X. The winner receives every donation from launch day on.</p>
+    </div>
+    <div class="votes" id="votes"></div>
+    <div class="votenote">
+      <span class="window" id="voteWindow"></span>
+      <p>Results come from the official poll on our X account and are updated here by the team. All three are available as recipients on pump.fun Charity Coins via donate.gg. $TOMORROW is an independent community project and is not affiliated with or endorsed by these organisations.</p>
+    </div>
+  </div>
+</section>
+
+<section id="meter">
+  <div class="wrap">
+    <div class="sechead">
+      <h2>The tomorrow meter</h2>
+      <p>The counter starts at launch. Fees are switched to charity before the contract is ever posted. Every figure links to a transaction you can check yourself.</p>
+    </div>
+    <div class="meter">
+      <div class="stat"><small>Raised (USD)</small><b class="num" id="usd">$0</b></div>
+      <div class="stat"><small>Creator fees (SOL)</small><b class="num" id="sol">0.00</b></div>
+      <div class="stat"><small>Donations delivered</small><b class="num" id="count">0</b></div>
+    </div>
+    <div class="flow">
+      <div class="step"><div class="n">01</div><h3>Trade</h3><p>Every buy and sell of $TOMORROW generates creator fees.</p></div>
+      <div class="step"><div class="n">02</div><h3>Route</h3><p>Fees go through pump.fun Charity Coins, not to a team wallet.</p></div>
+      <div class="step"><div class="n">03</div><h3>Donate</h3><p>donate.gg keeps a 10% processing fee and forwards the rest to the winning charity.</p></div>
+      <div class="step"><div class="n">04</div><h3>Prove</h3><p>Each transfer is posted on X and listed below.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="proof">
+  <div class="wrap">
+    <div class="sechead">
+      <h2>Proof log</h2>
+      <p>Every donation, with its transaction. No proof, no claim.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Date</th><th>Charity</th><th>Amount</th><th>Transaction</th></tr></thead>
+        <tbody id="proofs"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="token">
+  <div class="wrap">
+    <div class="sechead">
+      <h2>Token</h2>
+      <p>No presale. No team allocation. Fair launch on November 20.</p>
+    </div>
+    <div class="token">
+      <div class="stat"><small>Ticker</small><b id="tTicker">$TOMORROW</b></div>
+      <div class="stat"><small>Network</small><b>Solana</b></div>
+      <div class="stat"><small>Launchpad</small><b>pump.fun</b></div>
+      <div class="ca">
+        <strong>Contract</strong>
+        <code id="caText">Revealed at sunrise, Nov 20</code>
+        <button class="btn" id="copyBtn" type="button">Copy</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sechead"><h2>Roadmap</h2></div>
+    <div class="road">
+      <div class="rm"><b>Nov 13</b><span>Lio says hello on X</span></div>
+      <div class="rm now"><b>Nov 14–19</b><span>Community vote on X</span></div>
+      <div class="rm"><b>Nov 20</b><span>Sunrise: launch on World Children's Day</span></div>
+      <div class="rm"><b>Every week</b><span>Donation proof posted on X</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="row"><b id="footBrand">$TOMORROW</b><a href="#top">Back to the night sky</a></div>
+    <p>$TOMORROW is a memecoin with no intrinsic value and no expectation of financial return. It is not an investment. Crypto is volatile and you can lose everything you put in. $TOMORROW is an independent community initiative, not affiliated with, endorsed by or sponsored by any charity named on this page. Donations are routed via pump.fun Charity Coins and donate.gg, which keeps a 10% processing fee on Charity Coin flows. Lio is a fictional character.</p>
+  </div>
+</footer>
+
+<script>
+/* ====== EDIT HERE ====== */
+const CONFIG = {
+  ticker: "$TOMORROW",
+  announceUTC: "2026-11-13T00:00:00Z",
+  launchUTC: "2026-11-20T14:00:00Z",
+  xUrl: "https://x.com/",
+  pollUrl: "https://x.com/",
+  voteWindow: "Poll open Nov 14 – Nov 19",
+  contract: "",
+  charities: [
+    { name: "Save the Children", text: "Works in more than 100 countries to keep children healthy, educated and safe.", votes: 0 },
+    { name: "SOS Children's Villages", text: "Gives children who have lost their parents' care a loving home and a family again.", votes: 0 },
+    { name: "World Vision", text: "Helps children and families out of poverty with child sponsorship, clean water, school and emergency aid.", votes: 0 }
+  ],
+  raisedUSD: 0,
+  feesSOL: 0,
+  proofs: []
+};
+/* ======================= */
+
+const $ = id => document.getElementById(id);
+const pad = n => String(n).padStart(2,"0");
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+$("navX").href = CONFIG.xUrl;
+$("voteWindow").textContent = CONFIG.voteWindow;
+
+/* --- sunrise progress + countdown --- */
+const start = new Date(CONFIG.announceUTC), target = new Date(CONFIG.launchUTC);
+$("clockWhen").textContent = "Launch: " + target.toLocaleString(undefined,{weekday:"long",day:"numeric",month:"long",hour:"2-digit",minute:"2-digit",timeZoneName:"short"});
+function tick(){
+  const now = Date.now();
+  const p = Math.min(1, Math.max(0,(now - start)/(target - start)));
+  document.documentElement.style.setProperty("--dawn", (0.08 + p*0.92).toFixed(3));
+  let diff = target - now;
+  if (diff <= 0){
+    $("cells").style.display="none"; $("live").style.display="flex";
+    $("clockLabel").textContent="Good morning"; return;
+  }
+  const d=Math.floor(diff/864e5); diff-=d*864e5;
+  const h=Math.floor(diff/36e5); diff-=h*36e5;
+  const m=Math.floor(diff/6e4); diff-=m*6e4;
+  const s=Math.floor(diff/1e3);
+  $("d").textContent=pad(d); $("h").textContent=pad(h); $("m").textContent=pad(m); $("s").textContent=pad(s);
+}
+tick(); setInterval(tick,1000);
+
+/* --- sky canvas: stars, fireflies, lit stars --- */
+const cv=$("sky"), cx=cv.getContext("2d");
+let W=0,H=0,stars=[],flies=[],lit=[];
+function resize(){
+  const r=cv.getBoundingClientRect(), dpr=Math.min(2,devicePixelRatio||1);
+  W=r.width; H=r.height; cv.width=W*dpr; cv.height=H*dpr; cx.setTransform(dpr,0,0,dpr,0,0);
+  stars=Array.from({length:Math.round(W*H/5000)},()=>({x:Math.random()*W,y:Math.random()*H*.7,r:Math.random()*1.4+.3,t:Math.random()*6.28,s:Math.random()*.02+.005}));
+  flies=Array.from({length:14},()=>({x:Math.random()*W,y:H*.45+Math.random()*H*.5,a:Math.random()*6.28,v:Math.random()*.4+.15}));
+}
+function draw(){
+  cx.clearRect(0,0,W,H);
+  for(const s of stars){ s.t+=s.s; cx.globalAlpha=.35+.65*Math.abs(Math.sin(s.t)); cx.fillStyle="#fff"; cx.beginPath(); cx.arc(s.x,s.y,s.r,0,6.28); cx.fill(); }
+  for(const l of lit){
+    l.t+=.04; l.g=Math.min(1,l.g+.03);
+    const r=(2.6+Math.sin(l.t)*.6)*l.g;
+    cx.globalAlpha=.9*l.g; cx.fillStyle="#FFE08A";
+    cx.shadowColor="#FFC93C"; cx.shadowBlur=16; cx.beginPath(); cx.arc(l.x,l.y,r,0,6.28); cx.fill(); cx.shadowBlur=0;
+  }
+  for(const f of flies){
+    f.a+=.01; f.x+=Math.cos(f.a)*f.v; f.y+=Math.sin(f.a*1.3)*f.v*.6;
+    if(f.x<0)f.x=W; if(f.x>W)f.x=0;
+    cx.globalAlpha=.5+.5*Math.sin(f.a*3); cx.fillStyle="#FFD86B";
+    cx.shadowColor="#FFC93C"; cx.shadowBlur=10; cx.beginPath(); cx.arc(f.x,f.y,1.8,0,6.28); cx.fill(); cx.shadowBlur=0;
+  }
+  cx.globalAlpha=1;
+  if(!reduce) requestAnimationFrame(draw);
+}
+resize(); addEventListener("resize",()=>{resize(); if(reduce) draw();}); draw();
+
+/* light a star (kept in this browser only) */
+let myStars=0;
+try{ myStars=parseInt(localStorage.getItem("tmrw_stars")||"0",10)||0; }catch(e){}
+function addStar(){ lit.push({x:W*.05+Math.random()*W*.9,y:20+Math.random()*H*.45,t:Math.random()*6,g:reduce?1:0}); }
+for(let i=0;i<Math.min(myStars,60);i++) addStar();
+function starNote(){ if(myStars) $("starNote").textContent = myStars===1 ? "You lit 1 star tonight. Someone sleeps a little better." : `You lit ${myStars} stars tonight. The sky is getting brighter.`; }
+starNote();
+$("starBtn").addEventListener("click",()=>{
+  myStars++; addStar(); starNote(); if(reduce) draw();
+  try{ localStorage.setItem("tmrw_stars",String(myStars)); }catch(e){}
+});
+
+/* --- Lio: eyes follow, hug on tap --- */
+const eyes=$("eyes"), lio=$("lio"), stage=$("stage"), bubble=$("bubble");
+function look(x,y){
+  const r=lio.getBoundingClientRect();
+  const ex=r.left+r.width*.5, ey=r.top+r.height*.43;
+  const dx=x-ex, dy=y-ey, d=Math.hypot(dx,dy)||1;
+  eyes.style.transform=`translate(${(dx/d*4).toFixed(1)}px,${(dy/d*3).toFixed(1)}px)`;
+}
+addEventListener("pointermove",e=>look(e.clientX,e.clientY));
+const lines=[
+  "Hi. I'm Lio. This is Bear.",
+  "Bear lost an eye once. Mum sewed it back.",
+  "Is tomorrow going to be better?",
+  "Thank you for staying with me.",
+  "When the sun comes up, I'll be braver.",
+  "Bear says you give good hugs.",
+  "Can you light a star for my friends too?"
+];
+let li=0;
+lio.addEventListener("click",e=>{
+  lio.classList.remove("hug"); void lio.offsetWidth; lio.classList.add("hug");
+  li=(li+1)%lines.length;
+  bubble.style.opacity=0;
+  setTimeout(()=>{ bubble.textContent=lines[li]; bubble.style.opacity=1; },reduce?0:220);
+  if(reduce) return;
+  const sr=stage.getBoundingClientRect(), lr=lio.getBoundingClientRect();
+  for(let i=0;i<7;i++){
+    const h=document.createElement("span");
+    h.className="heart"; h.textContent="♥";
+    h.style.left=(lr.left-sr.left+lr.width*.5+(Math.random()*80-40))+"px";
+    h.style.top=(lr.top-sr.top+lr.height*.55)+"px";
+    h.style.setProperty("--dx",(Math.random()*120-60)+"px");
+    h.style.animationDelay=(i*.08)+"s";
+    stage.appendChild(h); setTimeout(()=>h.remove(),2400);
+  }
+});
+
+/* --- vote --- */
+const total=CONFIG.charities.reduce((a,c)=>a+c.votes,0);
+const max=Math.max(...CONFIG.charities.map(c=>c.votes));
+$("votes").innerHTML=CONFIG.charities.map((c,i)=>{
+  const pct=total?Math.round(c.votes/total*100):0;
+  return `<article class="vcard${total&&c.votes===max?" lead":""}">
+    <div class="vletter">${"ABC"[i]}</div><h3>${c.name}</h3><p>${c.text}</p>
+    <div class="pct num"><span>${total?pct+"%":"Voting opens soon"}</span><span>${total?c.votes+" votes":""}</span></div>
+    <div class="bar"><i style="width:${pct}%"></i></div>
+    <a class="btn" href="${CONFIG.pollUrl}">Vote on X</a></article>`;
+}).join("");
+
+/* --- meter, proofs, contract --- */
+$("usd").textContent="$"+CONFIG.raisedUSD.toLocaleString("en-US");
+$("sol").textContent=CONFIG.feesSOL.toFixed(2);
+$("count").textContent=CONFIG.proofs.length;
+$("proofs").innerHTML=CONFIG.proofs.length
+  ? CONFIG.proofs.map(p=>`<tr><td class="num">${p.date}</td><td>${p.charity}</td><td class="num">${p.amount}</td><td><a href="${p.tx}">View on Solscan</a></td></tr>`).join("")
+  : `<tr><td colspan="4" class="empty">The first donation will appear here after sunrise on Nov 20.</td></tr>`;
+if(CONFIG.contract) $("caText").textContent=CONFIG.contract;
+$("copyBtn").addEventListener("click",async()=>{
+  if(!CONFIG.contract){ $("copyBtn").textContent="Not live yet"; setTimeout(()=>$("copyBtn").textContent="Copy",2000); return; }
+  try{ await navigator.clipboard.writeText(CONFIG.contract); $("copyBtn").textContent="Copied"; }catch(e){ $("copyBtn").textContent="Select and copy"; }
+  setTimeout(()=>$("copyBtn").textContent="Copy",2000);
+});
+</script>
+</body>
+</html>
